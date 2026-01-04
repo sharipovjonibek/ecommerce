@@ -61,7 +61,7 @@
 
                   &nbsp; 
                   
-                  <select id="">
+                  <select id="select{{product.id}}">
                   
                     <option selected>
                   
@@ -81,7 +81,7 @@
                   
                   <br> <br>
 
-                  <button type="button" id="update-button"
+                  <button type="button" data-index="{{product.id}}"
                     class="btn btn-primary btn-sm update-button">
                     Update
                   
@@ -129,6 +129,42 @@
  </main>
 
  <script>
+
+  // Update button
+
+      $(document).on('click','.update-button',function(e){
+        e.preventDefault();
+
+        var theproductid=$(this).data('index');
+
+        $.ajax({
+            type:'POST',
+            url:'{%url "cart-update" %}',
+            data:{
+                product_id: $(this).data('index'),
+                product_quantity: $('#select'+theproductid +' option:selected').text(),
+                csrfmiddlewaretoken:"{{csrf_token}}",
+                action:'post'
+            },
+
+            success:function(json){
+
+                //console.log(json)
+
+                location.reload()
+                document.getElementById("cart-qty").textContent = json.qty
+                document.getElementById("subtotal").textContent = json.total
+
+            },
+
+            error:function(xhr,errmsg,err){
+
+            }
+        });
+
+    })
+
+
     // Delete button
     $(document).on('click','.delete-button',function(e){
         e.preventDefault();
