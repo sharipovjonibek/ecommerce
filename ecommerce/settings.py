@@ -37,7 +37,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
     'mathfilters',
+    'crispy_forms', # Crispy forms
+    'crispy_bootstrap4', # Crispy template
 
     'store', # Django app
     'cart',  # Django app
@@ -53,6 +56,10 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+
+CRISPY_TEMPLATE_PACK='bootstrap4'
+
 
 ROOT_URLCONF = 'ecommerce.urls'
 
