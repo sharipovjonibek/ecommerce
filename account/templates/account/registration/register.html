@@ -4,9 +4,15 @@
 {% load crispy_forms_tags %}
 {% block content %}
 
+    <style>
+        body{
+            background-color:gray;
+        }
+    </style>
+
 <body>
-    <br>
-    <div class ="container bg-white shadow-md p-5">
+    <br> 
+    <div class ="container bg-white shadow-md p-5 form-layout">
         <h3>Create your account</h3>
 
         <h5>Purchase your favourite items today!</h5>
@@ -22,7 +28,7 @@
             {{form.email|as_crispy_field}}
             <br><br>
             {{form.password1|as_crispy_field}}
-            <br><br>
+            <br>
             {{form.password2|as_crispy_field}}
 
             <br>
@@ -33,9 +39,9 @@
         </form>
 
     </div>
-
-
 </body>
+<br>
+<br>
 
 
 {% endblock %}
