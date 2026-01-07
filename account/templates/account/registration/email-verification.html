@@ -1,0 +1,12 @@
+{% autoescape off %}
+
+Hi,
+
+Thank you for registering on our website.
+
+Please be so kind as to verify your email by clicking the link below:
+
+http://{{domain}}{% url 'email-verification' uidb64=uid token=token %}
+
+
+{% endautoescape %}
