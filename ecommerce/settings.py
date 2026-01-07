@@ -144,5 +144,20 @@ MEDIA_ROOT=BASE_DIR/'static/media'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Email configuration settings: 
+from pathlib import Path
+import os
+from dotenv import load_dotenv
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+env_path = BASE_DIR/".env"  # Locate the .env file
+
+load_dotenv(dotenv_path=env_path)
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+
+
+
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
