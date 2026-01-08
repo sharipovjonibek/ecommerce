@@ -137,14 +137,11 @@ def dashboard(request):
     return render(request,"account/dashboard.html")
 
 
-
-
-
 @login_required(login_url='my-login')
 def profile_management(request):
 
     # Updating our user's username and email
-    
+
     user_form = UpdateUserForm(instance=request.user)
 
     if request.method == 'POST':
