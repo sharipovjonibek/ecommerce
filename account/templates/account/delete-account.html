@@ -16,13 +16,16 @@
         <h3> Account deletion </h3>
         <hr>
         
-        
+        <p> Are you sure that you want to delete your account? </p>
+
         <form method="POST" autocomplete="off">
             {%csrf_token%}
 
-            <p> Are you sure that you want to delete your account? </p>
+            <button type="submit" class="btn btn-danger navbar-btn text-white">&nbsp; Delete your account </button>
 
-            <button type="submit" class="btn btn-danger btn-lg w-100 btn-block p-2">&nbsp; Delete your account </button>
+            <br><br>
+
+            <a class="btn btn-primary navbar-btn text-white" type="button"  href="{% url 'profile-management' %}"><i class="fa fa-arrow-left" aria-hidden="true"></i> &nbsp; Go back </a>
 
         </form>
 
