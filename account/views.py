@@ -13,6 +13,8 @@ from django.utils.http import urlsafe_base64_decode,urlsafe_base64_encode
 from django.contrib.auth.models import auth
 from django.contrib.auth import authenticate,login,logout
 
+from django.contrib.auth.decorators import login_required
+
 
 # Create your views here.
 def register(request):
@@ -122,9 +124,14 @@ def my_login(request):
 
 # Logout
 
+def user_logout(request):
+
+    logout(request)
+
+    return redirect('store')
 
 
-
+@login_required(login_url='my-login')
 def dashboard(request):
     
     return render(request,"account/dashboard.html")

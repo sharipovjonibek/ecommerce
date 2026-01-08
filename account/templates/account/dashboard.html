@@ -1,1 +1,66 @@
-<h1>This is Dashboard</h1>
+{% include "store/base.html" %}
+
+{% load static %}
+
+{% block content %}
+
+    <style>
+
+        body{
+
+            background-color:gray;
+        }
+        
+        li {
+        list-style-position: inside;
+        }
+
+    </style>
+
+<body>
+    <br> 
+    <div class ="container bg-white shadow-md p-5 form-layout">
+
+        <h4> Welcome, {{user}}</h4>
+        
+        <hr>
+
+        <p> This is your dashboard where you can perform any of the following: </p>
+        
+        <li > Track your orders </li>
+        <li > Manage your account </li>
+
+    </div>
+
+    <br>
+
+    <div class ="container bg-white shadow-md p-5 form-layout">
+
+        <h4> Track your orders </h4>
+        <hr>
+
+        <a class="btn btn-primary navbar-btn text-white" type="button"  href=""> My orders </a>
+
+    </div>
+
+    <br>
+
+    <div class ="container bg-white shadow-md p-5 form-layout">
+
+        <h4> Manage your account </h4>
+
+        <hr>
+
+        <a class="btn btn-primary navbar-btn text-white" type="button"  href=""> Profile management </a>
+
+        <br> <br>
+
+        <a class="btn btn-danger navbar-btn text-white" type="button"  href="{% url 'user-logout' %}"> Logout </a>
+
+    </div>
+
+    <br>
+
+</body>
+
+{% endblock %}
