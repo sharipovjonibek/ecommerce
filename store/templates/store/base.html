@@ -120,25 +120,41 @@
 
         </div>
 
-
         <div class="collapse navbar-collapse text-center" id="navbarNavDropdown">
             
             <ul class="navbar-nav ms-auto">
 
+                {% if user.is_authenticated %}
+                
+                    <li class="nav-item">
+                
+                        <a class="btn btn-alert navbar-btn text-white" type="button"  href="{% url 'dashboard' %}"> Dashboard </a>
 
-                <li class="nav-item">
-            
-                    <a class="btn btn-alert navbar-btn text-white" type="button"  href="{% url 'register' %}"> Register </a>
+                    </li>
+                
 
-                </li>
+                    <li class="nav-item">
 
+                        <a class="btn btn-alert navbar-btn text-white" type="button"  href="{% url 'user-logout' %}"> Logout </a>
 
-                <li class="nav-item">
+                    </li>
+                
+                {% else %}
 
-                    <a class="btn btn-alert navbar-btn text-white" type="button"  href="{% url 'my-login' %}"> Login </a>
+                    <li class="nav-item">
+                    
+                        <a class="btn btn-alert navbar-btn text-white" type="button"  href="{% url 'register' %}"> Register </a>
 
-                </li>
+                    </li>
+                    
 
+                    <li class="nav-item">
+
+                        <a class="btn btn-alert navbar-btn text-white" type="button"  href="{% url 'my-login' %}"> Login </a>
+
+                    </li>
+                
+                {% endif %}
 
                 &nbsp; &nbsp; &nbsp;
 
