@@ -11,7 +11,7 @@ from django.utils.http import urlsafe_base64_decode,urlsafe_base64_encode
 
 
 from django.contrib.auth.models import auth
-from django.contrib.auth import authenticate,login,logout
+from django.contrib.auth import authenticate,login
 
 from django.contrib.auth.decorators import login_required
 
@@ -125,9 +125,18 @@ def my_login(request):
 # Logout
 
 def user_logout(request):
+    try:
 
-    logout(request)
+        for key in list(request.session.keys()):
 
+            if key == 'session_key':
+                continue
+            else:
+                del request.session[key]
+    
+    except KeyError:
+        pass
+    
     return redirect('store')
 
 
@@ -172,5 +181,3 @@ def delete_account(request):
         return redirect('store')
     
     return render(request,"account/delete-account.html")
-
-
