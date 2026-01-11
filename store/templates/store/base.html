@@ -128,14 +128,14 @@
                 
                     <li class="nav-item">
                 
-                        <a class="btn btn-alert navbar-btn text-white" type="button"  href="{% url 'dashboard' %}"> Dashboard </a>
+                        <a class="btn btn-alert navbar-btn text-white" type="button"  href="{% url 'dashboard' %}"> <i class="fa fa-home" aria-hidden="true"></i> &nbsp; Dashboard </a>
 
                     </li>
                 
 
                     <li class="nav-item">
 
-                        <a class="btn btn-alert navbar-btn text-white" type="button"  href="{% url 'user-logout' %}"> Logout </a>
+                        <a class="btn btn-alert navbar-btn text-white" type="button"  href="{% url 'user-logout' %}"> <i class="fa fa-sign-out" aria-hidden="true"></i> &nbsp; Logout </a>
 
                     </li>
                 
@@ -201,19 +201,19 @@
 
         {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
 
-            <h6 id="message-timer" class="alert alert-success text-center"> {{message}} </h6>
+            <h6 id="message-timer" class="alert alert-success text-center"><i class="fa fa-sign-out" aria-hidden="true"></i> &nbsp; {{message}} </h6>
 
         {% endif %}
 
         {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
 
-            <h6 id="message-timer" class="alert alert-danger text-center"> {{message}} </h6>
+            <h6 id="message-timer" class="alert alert-danger text-center"> <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> &nbsp; {{message}} </h6>
 
         {% endif %}
 
         {% if message.level == DEFAULT_MESSAGE_LEVELS.INFO %}
 
-            <h6 id="message-timer" class="alert alert-info text-center"> {{message}} </h6>
+            <h6 id="message-timer" class="alert alert-info text-center"> <i class="fa fa-check-circle" aria-hidden="true"></i> &nbsp; {{message}} </h6>
 
         {% endif %}
 
