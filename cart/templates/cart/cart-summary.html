@@ -116,9 +116,12 @@
       <div class="col-12 text-end">
  
         <div class="h6 fw-bold"> Sub total: $ <div id="subtotal" class="d-inline-flex"> {{cart.get_total}} </div></div>
+
+        <br>
+        
+        <a href="{% url 'checkout' %}" class="btn btn-primary my-2"> <i class="fa fa-chevron-circle-right" aria-hidden="true"></i> &nbsp; Proceed to checkout </a>
  
       </div>
- 
 
     </div>
 
