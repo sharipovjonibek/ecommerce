@@ -26,7 +26,7 @@
 
         <div class="container bg-white shadow-md p-5" style="width:500px; border-radius:20px;">
 
-            <form id="form">
+            <form id="form" onsumbit="event.preventDefault();">
 
                 <div>
 
@@ -108,17 +108,18 @@
             
                 </div>
 
-                <br>
+                <br> <br>
 
+               {% comment %} <button id="complete-order" type="submit" class="btn btn-primary navbar-btn text-white"> &nbsp; Complete order </button> {% endcomment %}
 
+                <!-- Paypal -->
 
-               <button id="complete-order" type="submit" class="btn btn-primary navbar-btn text-white"> &nbsp; Complete order </button>
-               
+                <!-- PayPal button container -->
 
-                <br>
+                <div id="paypal-button-container"></div>
 
-
-
+                <script src="https://www.paypal.com/sdk/js?client-id=ARdgsSC5AHTi4Q5nDUROMxpJuYgiiUH4YX1slgrKWliz1O8yHjj6lzarIi0w0W7MkFnar3U1irOJIald&currency=USD&intent=capture&disable-funding=venmo,paylater" data-sdk-integration-source="integrationbuilder"></script>
+            
 
             </form>
 
@@ -139,49 +140,140 @@
 
     <script>
 
-        // Complete checkout
+        // Total price
+        var total_price = '{{cart.get_total}}';
 
-        $(document).on('submit',function(e){
-            e.preventDefault();
+        // Paypal script
 
-            $.ajax({
-                type:'POST',
-                url:'{%url "complete-order" %}',
-                data:{
+            const paypalButtonsComponent = paypal.Buttons({
+            // optional styling for buttons
+            // https://developer.paypal.com/docs/checkout/standard/customize/buttons-style-guide/
+            style: {
+            color: "gold",
+            shape: "pill",
+            layout: "vertical"
+            },
 
-                    name:$('#name').val(),
-                    email:$('#email').val(),
+            // Complete order - WITH SHIPPING / WITHOUT SHIPPING
 
-                    address1:$('#address1').val(),
-                    address2:$('#address2').val(),
-                    city:$('#city').val(),
-                    
-                    state:$('#state').val(),
-                    zipcode:$('#zipcode').val(),
+            onInit: function (data, actions) {
+                actions.disable();
 
-                    csrfmiddlewaretoken:"{{csrf_token}}",
-                    action:'post'
-                },
+                function checkInputs() {
+                    let valid = true;
 
-                success:function(json){
+                    document.querySelectorAll('input[required]').forEach(input => {
+                        if (!input.value.trim()) {
+                            valid = false;
+                        }
 
-                    window.location.replace("{% url 'payment-success' %}");
+                         // email validation
+                        if (input.type === 'email' && !input.checkValidity()) {
+                            valid = false;
+                        }
+                    });
 
-                },
-
-                error:function(xhr,errmsg,err){
-                    
-                    window.location.replace("{% url 'payment-failed' %}");
-
+                    return valid;
                 }
+
+                function togglePayPal() {
+                    if (checkInputs()) {
+                        actions.enable();
+                    } else {
+                        actions.disable();
+                    }
+                }
+
+                
+                togglePayPal();
+
+                
+                document.querySelectorAll('.validate').forEach(item => {
+                    item.addEventListener('input', togglePayPal);
+                    item.addEventListener('change', togglePayPal);
+                });
+            },
+
+
+            // set up the transaction
+            createOrder: (data, actions) => {
+                // pass in any options from the v2 orders create call:
+                // https://developer.paypal.com/api/orders/v2/#orders-create-request-body
+                const createOrderPayload = {
+                    purchase_units: [
+                        {
+                            amount: {
+                                value: total_price
+                            }
+                        }
+                    ]
+                };
+
+                return actions.order.create(createOrderPayload);
+            },
+
+            // finalize the transaction
+            onApprove: (data, actions) => {
+                const captureOrderHandler = (details) => {
+                    const payerName = details.payer.name.given_name;
+                    console.log('Transaction completed');
+
+                    // Ajax functionality
+
+                     $.ajax({
+                        type:'POST',
+                        url:'{%url "complete-order" %}',
+                        data:{
+
+                            name:$('#name').val(),
+                            email:$('#email').val(),
+
+                            address1:$('#address1').val(),
+                            address2:$('#address2').val(),
+                            city:$('#city').val(),
+                            
+                            state:$('#state').val(),
+                            zipcode:$('#zipcode').val(),
+
+                            csrfmiddlewaretoken:"{{csrf_token}}",
+                            action:'post'
+                        },
+
+                        success:function(json){
+
+                            window.location.replace("{% url 'payment-success' %}");
+
+                        },
+
+                        error:function(xhr,errmsg,err){
+                            
+                            window.location.replace("{% url 'payment-failed' %}");
+
+                        }
+                    });
+
+
+                };
+
+                return actions.order.capture().then(captureOrderHandler);
+            },
+
+            // handle unrecoverable errors
+            onError: (err) => {
+                console.error('An error prevented the buyer from checking out with PayPal');
+
+    
+
+            }
+        });
+
+        paypalButtonsComponent
+            .render("#paypal-button-container")
+            .catch((err) => {
+                console.error('PayPal Buttons failed to render');
             });
 
-        })
 
-    </script>
-
-
-
-
+    </script> 
 
 {% endblock %}
