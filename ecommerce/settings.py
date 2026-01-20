@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'mathfilters',
     'crispy_forms', # Crispy forms
     'crispy_bootstrap4', # Crispy template
+    'storages',
 
     'store', # Django app
     'cart',  # Django app
@@ -165,3 +166,33 @@ EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 # Allow PayPal Popups
 
 SECURE_CROSS_ORIGIN_OPENER_POLICY = 'same-origin-allow-popups'
+
+# AWS configuration 
+
+AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')
+
+# Amazon S3 Integration
+
+AWS_STORAGE_BUCKET_NAME = os.getenv('AWS_STORAGE_BUCKET_NAME')
+
+# Django -> Storage configuration for S3
+
+STORAGES = {
+
+    # Media file (image) management
+
+    "default":{
+        "BACKEND":"storages.backends.s3boto3.S3StaticStorage",
+    },
+
+    # CSS and JS file management
+
+    "staticfiles":{
+        "BACKEND":"storages.backends.s3boto3.S3StaticStorage",
+    },
+} 
+
+AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
+
+AWS_S3_FILE_OVERWRITE = False
