@@ -26,9 +26,13 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY')
 
 DEBUG = False
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = [
+    ".elasticbeanstalk.com",
+    "magazincha.uz",
+    "www.magazincha.uz",
+]
 
-# CSRF_TRUSTED_ORIGINS = ['']
+CSRF_TRUSTED_ORIGINS = ['http://ecommerce-dev.eu-central-1.elasticbeanstalk.com/']
 
 # Application definition
 
