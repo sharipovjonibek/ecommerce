@@ -29,6 +29,7 @@ DEBUG = False
 ALLOWED_HOSTS = [
     "magazincha.uz",
     "www.magazincha.uz",
+    '*'
 ]
 
 CSRF_TRUSTED_ORIGINS = ['https://magazincha.uz','https://www.magazincha.uz']
