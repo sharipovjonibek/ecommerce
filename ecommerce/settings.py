@@ -29,7 +29,7 @@ DEBUG = False
 ALLOWED_HOSTS = [
     "magazincha.uz",
     "www.magazincha.uz",
-    "*",
+    "ecommerce-dev.eu-central-1.elasticbeanstalk.com"
 ]
 
 CSRF_TRUSTED_ORIGINS = ['https://magazincha.uz','https://www.magazincha.uz']
