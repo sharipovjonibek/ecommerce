@@ -1,5 +1,5 @@
 # 🛒 Magazincha.uz  -  E-commerce Web Application
-[Magazincha.uz](https://magazincha.uz/) is a full-stack e-commerce web application built with Django.
+[Magazincha.uz](https://magazincha.uz/)  is a full-stack e-commerce web application built with Django.
 It allows users to browse products, add them to cart, and make secure online payments.
 
 ## Features
@@ -64,8 +64,8 @@ Create virtual environment
 `python -m venv venv`
 
 Activate environment
-`source venv/bin/activate` -  Linux/macOS
-`venv\Scripts\activate` -  Windows
+- `source venv/bin/activate` -  Linux/macOS
+- `venv\Scripts\activate` -  Windows
 
 Install dependencies
 `pip install -r requirements.txt`
