@@ -65,7 +65,7 @@ Create virtual environment
 
 Activate environment
 - `source venv/bin/activate` -  Linux/macOS
-- `venv\Scripts\activate` -  Windows
+-`venv\Scripts\activate` -  Windows
 
 Install dependencies
 `pip install -r requirements.txt`
